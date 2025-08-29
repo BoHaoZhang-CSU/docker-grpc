@@ -4,7 +4,7 @@ import sys
 
 import grpc
 
-from . import controller_pb2, controller_pb2_grpc
+from docker_grpc.controller import controller_pb2, controller_pb2_grpc
 
 COMMAND_MAP = {
     "left": controller_pb2.CommandType.LEFT,
