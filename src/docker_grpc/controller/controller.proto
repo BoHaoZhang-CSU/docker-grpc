@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package controller;
+
+service DeviceController {
+  rpc SendCommand (CommandRequest) returns (CommandResponse) {}
+}
+
+enum CommandType {
+  LEFT = 0;
+  RIGHT = 1;
+  ANGLE = 2;
+  SPEED = 3;
+  STOP = 4;
+}
+
+message CommandRequest {
+  CommandType command = 1;
+}
+
+message CommandResponse {
+  int32 value = 1;
+}
