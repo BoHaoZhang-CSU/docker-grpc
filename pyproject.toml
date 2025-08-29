@@ -1,0 +1,21 @@
+[project]
+name = "docker-grpc"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "zbh",email = "mypi@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "grpcio (>=1.74.0,<2.0.0)",
+    "grpcio-tools (>=1.74.0,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "docker_grpc", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
