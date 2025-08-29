@@ -5,18 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python 调试程序: 包含参数的当前文件",
+            "name": "client",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "src/docker_grpc/controller/client.py",
             "console": "integratedTerminal",
-            "args": "left"
+            "args": ["left"]
         },
         {
-            "name": "Python 调试程序: 当前文件",
+            "name": "server",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
+            "program": "src/docker_grpc/controller/server.py",
             "console": "integratedTerminal"
         }
     ]

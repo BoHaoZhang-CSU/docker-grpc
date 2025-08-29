@@ -11,7 +11,8 @@ dependencies = [
     "grpcio (>=1.74.0,<2.0.0)",
     "pyserial",
     "grpcio-tools (>=1.74.0,<2.0.0)",
-    "mypy-protobuf"
+    "mypy-protobuf",
+    "typer (>=0.16.1,<0.17.0)"
 ]
 
 [tool.poetry]

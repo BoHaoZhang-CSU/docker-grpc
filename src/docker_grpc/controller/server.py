@@ -17,11 +17,11 @@ COMMAND_MAP: Dict[int, str] = {
     controller_pb2.CommandType.STOP: "stop",
 }
 
-
+angle = 10
 class DeviceController(controller_pb2_grpc.DeviceControllerServicer):
     """gRPC servicer bridging requests to an STM32 over serial."""
 
-    def __init__(self, port: str = "/dev/ttyS0", baudrate: int = 115200) -> None:
+    def __init__(self, port: str = "COM36", baudrate: int = 115200) -> None:
         try:
             self.serial = serial.Serial(port, baudrate, timeout=1)
         except serial.SerialException:
@@ -30,13 +30,22 @@ class DeviceController(controller_pb2_grpc.DeviceControllerServicer):
 
     def SendCommand(self, request: controller_pb2.CommandRequest, context: grpc.ServicerContext) -> controller_pb2.CommandResponse:  # noqa: N802
         cmd = COMMAND_MAP.get(request.command)
+        if cmd == "right":
+            self.serial.write("r_pwm(300);".encode("utf-8"))
+        elif cmd == "left":
+            self.serial.write("l_pwm(300);".encode("utf-8"))
+        elif cmd == "stop":
+            angle += 10
+            self.serial.write(f"s_angle({angle});".encode("utf-8"))
+            
+        print("cmd:",cmd)
         if not cmd or self.serial is None:
             return controller_pb2.CommandResponse(value=0)
 
-        self.serial.write(cmd.encode("utf-8"))
+        # self.serial.write(cmd.encode("ascii"))
         self.serial.flush()
-        line = self.serial.readline().decode("utf-8").strip()
-
+        line = self.serial.readline().decode("ascii").strip()
+        print("recv:",line)
         try:
             _, value_str = line.split(":", 1)
             value = int(value_str)
